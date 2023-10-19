@@ -23,7 +23,7 @@ export default function Login({ setLoggedInUser }) {
 
   return (
     <div className="container" style={{ maxWidth: "500px" }}>
-      <h3>Login</h3>
+      <h3>Coach Login</h3>
       <FormGroup>
         <Label>Email</Label>
         <Input
@@ -54,7 +54,7 @@ export default function Login({ setLoggedInUser }) {
         Login
       </Button>
       <p>
-        Not signed up? Register <Link to="/register">here</Link>
+        Not on a team? Join a team <Link to="/register">here</Link>
       </p>
     </div>
   );
