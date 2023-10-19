@@ -1,5 +1,4 @@
-using NpgsqlTypes;
-
+using System.Collections.Generic;
 namespace CrossvilleCoed.Models;
 
 public class Player
@@ -10,11 +9,16 @@ public class Player
     public int PositionId { get; set; }
     public Position Pos { get; set; }
     public int TeamId { get; set; }
+    public List<PlayerGame> PlayerGames { get; set; }
     public Team Team { get; set; }
     public double OfficialAtBats
     {
         get
         {
+            if (PlayerGames == null)
+            {
+                return 0;
+            }
             double atBats = 0;
             foreach (PlayerGame playerGame in PlayerGames)
             {
@@ -27,6 +31,10 @@ public class Player
     {
         get
         {
+            if (PlayerGames == null)
+            {
+                return 0;
+            }
             double tHits = 0;
             foreach (PlayerGame playerGame in PlayerGames)
             {
@@ -46,13 +54,17 @@ public class Player
 
             decimal batAverage = (decimal)TotalHits / (decimal)OfficialAtBats;
 
-            return batAverage;
+            return Math.Round(batAverage, 3);
         }
     }
     public double RunsProduced
     {
         get
         {
+            if (PlayerGames == null)
+            {
+                return 0;
+            }
             double runsProduced = 0;
             foreach (PlayerGame playerGame in PlayerGames)
             {
@@ -65,6 +77,10 @@ public class Player
     {
         get
         {
+            if (PlayerGames == null)
+            {
+                return 0;
+            }
             double rBIS = 0;
             foreach (PlayerGame playerGame in PlayerGames)
             {
@@ -77,6 +93,10 @@ public class Player
     {
         get
         {
+            if (PlayerGames == null)
+            {
+                return 0;
+            }
             double runScord = 0;
             foreach (PlayerGame playerGame in PlayerGames)
             {
@@ -85,6 +105,5 @@ public class Player
             return runScord;
         }
     }     
-    public List<PlayerGame> PlayerGames { get; set; }
 }
 

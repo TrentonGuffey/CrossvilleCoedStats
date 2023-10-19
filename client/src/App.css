@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.two-column-layout {
+  display: flex;
+}
+.two-column-layout > :first-child {
+  margin-left: 20rem;
+}
