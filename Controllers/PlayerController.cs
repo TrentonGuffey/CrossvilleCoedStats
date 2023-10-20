@@ -46,5 +46,30 @@ public class PlayersController : ControllerBase
 
         return Ok(player);
     }
-    
+
+    [HttpDelete("{id}")]
+    //[Authorize]
+    public IActionResult Delete(int id)
+    {
+        try
+        {
+            var player = _dbcontext.Players.Find(id);
+
+            if (player == null)
+            {
+                return NotFound(); 
+            }
+
+            _dbcontext.Players.Remove(player);
+            _dbcontext.SaveChanges();
+
+            return NoContent(); 
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal Server Error: {ex.Message}"); 
+        }
+    }
+
+
 }

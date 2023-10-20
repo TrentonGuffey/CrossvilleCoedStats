@@ -19,7 +19,6 @@ public class GamesController : ControllerBase
 
     [HttpGet]
     //[Authorize]
-
     public IActionResult Get()
     {
         return Ok(_dbcontext.Games
@@ -27,4 +26,29 @@ public class GamesController : ControllerBase
         .Include(g => g.VisitorTeam)
         .ToList());
     }
+
+    [HttpDelete("{id}")]
+    //[Authorize]
+    public IActionResult Delete(int id)
+    {
+        try
+        {
+            var game = _dbcontext.Games.Find(id);
+
+            if (game == null)
+            {
+                return NotFound();
+            }
+
+            _dbcontext.Games.Remove(game);
+            _dbcontext.SaveChanges();
+
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal Server Error: {ex.Message}");
+        }
+    }
+
 }
