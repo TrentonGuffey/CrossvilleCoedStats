@@ -1,25 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "reactstrap";
 import { getPlayerById } from "../../managers/playerManager";
+import { useParams } from "react-router-dom";
 
-
-export default function PlayerDetails({ detailsPlayerId }) {
+const PlayerDetails = () => {
+    const { id } = useParams();
     const [player, setPlayer] = useState(null);
 
-    const getPlayerDetails = (id) => {
-        getPlayerById(id).then(setPlayer);
-    };
-
     useEffect(() => {
-        if (detailsPlayerId) {
-            getPlayerDetails(detailsPlayerId);
-        }
-    }, [detailsPlayerId]);
+    if (id) {
+        getPlayerById(id)
+            .then((response) => {
+                if (response.status === 404) {
+                    throw new Error("Player not found");
+                } else if (!response.ok) {
+                    throw new Error("Error fetching data");
+                }
+                return response.json();
+            })
+            .then((data) => setPlayer(data))
+            .catch((error) => console.error("Error fetching data: " + error));
+    }
+}, [id]);
 
     if (!player) {
         return <div>Loading...</div>;
+    
     }
-
     return (
         <div>
             <h2>{player.firstName} {player.lastName}</h2>
@@ -45,3 +52,4 @@ export default function PlayerDetails({ detailsPlayerId }) {
     );
 };
 
+export default PlayerDetails;
