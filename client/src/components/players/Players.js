@@ -7,9 +7,7 @@ export default function Players() {
     return (
         <div className="container">
             <div className="row">
-                <div className="col-sm-6">
-                    <PlayerTable setDetailsPlayerId={setDetailsPlayerId} />
-                </div>
+                <PlayerTable setDetailsPlayerId={setDetailsPlayerId} />
             </div>
         </div>
     );

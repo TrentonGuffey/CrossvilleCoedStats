@@ -6,10 +6,8 @@ export default function Games() {
 
     return (
         <div className="container">
-            <div className="row">
-                <div className="col-sm-4">
-                    <GameTable setDetailsGameId={setDetailsGameId} />
-                </div>
+            <div className="row">               
+                <GameTable setDetailsGameId={setDetailsGameId} />                
             </div>
         </div>
     );

@@ -2,26 +2,29 @@ import React, { useState, useEffect } from "react";
 import { Table } from "reactstrap";
 import { getPlayerById } from "../../managers/playerManager";
 import { useParams } from "react-router-dom";
-
 const PlayerDetails = () => {
     const { id } = useParams();
     const [player, setPlayer] = useState(null);
 
     useEffect(() => {
-    if (id) {
-        getPlayerById(id)
-            .then((response) => {
-                if (response.status === 404) {
-                    throw new Error("Player not found");
-                } else if (!response.ok) {
+        const fetchPlayerData = async () => {
+            try {
+                const response = await fetch(`/api/players/${id}`);
+                if (!response.ok) {
                     throw new Error("Error fetching data");
                 }
-                return response.json();
-            })
-            .then((data) => setPlayer(data))
-            .catch((error) => console.error("Error fetching data: " + error));
-    }
-}, [id]);
+
+                const data = await response.json();
+                setPlayer(data);
+            } catch (error) {
+                console.error("Error fetching data: " + error);
+            }
+        };
+
+        if (id) {
+            fetchPlayerData();
+        }
+    }, [id]);
 
     if (!player) {
         return <div>Loading...</div>;
