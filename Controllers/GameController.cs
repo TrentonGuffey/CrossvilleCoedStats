@@ -51,4 +51,64 @@ public class GamesController : ControllerBase
         }
     }
 
+    [HttpPost]
+    public IActionResult AddGame([FromBody] Game game)
+    {
+        if (game == null)
+        {
+            return BadRequest("Invalid game data");
+        }
+
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                var homeTeamExists = _dbcontext.Teams.Any(t => t.Id == game.HomeTeamId);
+                var visitorTeamExists = _dbcontext.Teams.Any(t => t.Id == game.VisitorTeamId);
+
+                if (!homeTeamExists || !visitorTeamExists)
+                {
+                    return BadRequest("One or both of the specified teams do not exist.");
+                }
+
+                _dbcontext.Games.Add(game);
+                _dbcontext.SaveChanges();
+
+                return Ok("Game added successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        else
+        {
+            var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+            return BadRequest(errors);
+        }
+    }
+
+    // [HttpPost]
+    // //[Authorize]
+    // public IActionResult AddGame([FromBody] Game game)
+    // {
+    //     if (game == null)
+    //     {
+    //         return BadRequest("Invalid game data");
+    //     }
+
+    //     try
+    //     {
+    //         // Add the game to the database
+    //         _dbcontext.Games.Add(game);
+    //         _dbcontext.SaveChanges();
+
+    //         return Ok("Game added successfully");
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         return StatusCode(500, $"Internal server error: {ex.Message}");
+    //     }
+    // }
+
 }
