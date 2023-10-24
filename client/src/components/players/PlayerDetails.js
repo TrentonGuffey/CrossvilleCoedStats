@@ -1,52 +1,65 @@
 import React, { useState, useEffect } from "react";
-import { Table } from "reactstrap";
-import { getPlayerById } from "../../managers/playerManager";
-import { useParams } from "react-router-dom";
-const PlayerDetails = () => {
-    const { id } = useParams();
-    const [player, setPlayer] = useState(null);
+import { Button, Table } from "reactstrap";
+import { format } from "date-fns";
+import { deletePlayerGame } from "../../managers/playerGameManager";
 
-    useEffect(() => {
-        const fetchPlayerData = async () => {
-            try {
-                const response = await fetch(`/api/players/${id}`);
-                if (!response.ok) {
-                    throw new Error("Error fetching data");
-                }
-
-                const data = await response.json();
-                setPlayer(data);
-            } catch (error) {
-                console.error("Error fetching data: " + error);
-            }
-        };
-
-        if (id) {
-            fetchPlayerData();
-        }
-    }, [id]);
-
+const PlayerDetails = ({ player }) => {
     if (!player) {
         return <div>Loading...</div>;
-    
-    }
+    };
+
+    const formatGameTime = (gameTime) => {
+        const date = new Date(gameTime);
+        return format(date, "MM-dd-yyyy HH:mm")
+    };
+
+    const handleDeleteGame = async (gameId) => {
+        try {
+            await deletePlayerGame(gameId);
+            // You may want to refresh or update the player data here if needed.
+            console.log("Player game deleted successfully");
+            window.location.reload();
+        } catch (error) {
+            console.error("Error deleting player game: " + error);
+        }
+    };
+
     return (
         <div>
-            <h2>{player.firstName} {player.lastName}</h2>
+            <h2>
+                {player.firstName} {player.lastName}, {player.pos.pos} , {player.team.name}
+            </h2>
             <Table>
                 <thead>
                     <tr>
                         <th>Game Date</th>
-                        <th>Score</th>
-                        {/* Add other table headers for PlayerGames properties */}
+                        <th>Total Plate Appearances</th>
+                        <th>Singles</th>
+                        <th>Doubles</th>
+                        <th>Triples</th>
+                        <th>Home Runs</th>
+                        <th>Walks</th>
+                        <th>Sacrifices</th>
+                        <th>Fielder's Choices</th>
+                        <th>RBI's</th>
+                        <th>Runs Scored</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {player.playerGames.map(() => (
-                        <tr key={player.playerGames.id}>
-                            <td>{}</td>
-                            <td>{}</td>
-                            {/* Render other PlayerGames properties here */}
+                    {player.playerGames.map((game) => (
+                        <tr key={game.id}>
+                            <td>{formatGameTime(game.game.gameTime)}</td>
+                            <td>{game.totalPlateAppearances}</td>
+                            <td>{game.single}</td>
+                            <td>{game.double}</td>
+                            <td>{game.triple}</td>
+                            <td>{game.homeRun}</td>
+                            <td>{game.walk}</td>
+                            <td>{game.sacrifice}</td>
+                            <td>{game.fieldersChoice}</td>
+                            <td>{game.runsBattedIn}</td>
+                            <td>{game.runsScored}</td>
+                            <td><Button color="danger" onClick={() => handleDeleteGame(game.id)}>Delete</Button></td>
                         </tr>
                     ))}
                 </tbody>

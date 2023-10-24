@@ -88,27 +88,4 @@ public class GamesController : ControllerBase
         }
     }
 
-    // [HttpPost]
-    // //[Authorize]
-    // public IActionResult AddGame([FromBody] Game game)
-    // {
-    //     if (game == null)
-    //     {
-    //         return BadRequest("Invalid game data");
-    //     }
-
-    //     try
-    //     {
-    //         // Add the game to the database
-    //         _dbcontext.Games.Add(game);
-    //         _dbcontext.SaveChanges();
-
-    //         return Ok("Game added successfully");
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         return StatusCode(500, $"Internal server error: {ex.Message}");
-    //     }
-    // }
-
 }

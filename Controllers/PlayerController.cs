@@ -29,7 +29,7 @@ public class PlayersController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize]
+    //[Authorize]
     public IActionResult GetById(int id)
     {
         Player player = _dbcontext.Players
@@ -48,7 +48,7 @@ public class PlayersController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [Authorize]
+    //[Authorize]
     public IActionResult Delete(int id)
     {
         try
