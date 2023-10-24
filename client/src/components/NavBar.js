@@ -27,7 +27,18 @@ return (
         <>
             <NavbarToggler onClick={toggleNavbar} />
             <Collapse isOpen={open} navbar>
-            <Nav navbar></Nav>
+            <Nav navbar>
+            <NavItem onClick={() => setOpen(false)}>
+                <NavLink tag={RRNavLink} to="/players">
+                    Player List
+                </NavLink>
+            </NavItem>
+            <NavItem onClick={() => setOpen(false)}>
+                <NavLink tag={RRNavLink} to="/games">
+                    Game List
+                </NavLink>
+            </NavItem>
+            </Nav>
             </Collapse>
             <Button
             color="primary"

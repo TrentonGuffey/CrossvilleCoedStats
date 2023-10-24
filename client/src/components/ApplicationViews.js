@@ -5,8 +5,11 @@ import Register from "./auth/Register";
 import Players from "./players/Players";
 import Games from "./games/Games";
 import PlayerDetails from "./players/PlayerDetails";
+import { useState } from "react";
+import PlayerPage from "./players/PlayerPage";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
+  const [PlayerDetailsKey, setPlayerDetailsKey] = useState(0);
   return (
     <Routes>
       <Route path="/">
@@ -30,10 +33,18 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           }
         />
         <Route
+          path="games"
+          element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <Games />
+            </AuthorizedRoute>
+          }
+        />
+        <Route
           path="players/:id" 
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
-              <PlayerDetails />
+              <PlayerPage />
             </AuthorizedRoute>
           }
         />
