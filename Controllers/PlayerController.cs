@@ -86,5 +86,31 @@ public class PlayersController : ControllerBase
         return Ok("Player added successfully");
     }
 
+    [HttpPut("{id}/editTeam")]
+    //[Authorize]
+    public async Task<IActionResult> EditTeam([FromBody] Player player)
+    {
+        if (player == null)
+        {
+            return BadRequest("Invalid data");
+        }
 
+        try
+        {
+            var existingPlayer = _dbcontext.Players.FirstOrDefault(p => p.Id == player.Id);
+
+            if (existingPlayer == null)
+            {
+                return NotFound("Player not found");
+            }
+            existingPlayer.TeamId = player.TeamId;
+            _dbcontext.SaveChanges();
+            return Ok("Player's team updated successfully");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error updating player's team: " + ex.Message);
+            return StatusCode(500, "Internal server error");
+        }
+    }
 }

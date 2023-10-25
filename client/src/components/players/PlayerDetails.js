@@ -26,9 +26,6 @@ const PlayerDetails = ({ player }) => {
 
     return (
         <div>
-            <h2>
-                {player.firstName} {player.lastName}, {player.pos.pos} , {player.team.name}
-            </h2>
             <Table>
                 <thead>
                     <tr>
