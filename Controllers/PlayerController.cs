@@ -71,5 +71,20 @@ public class PlayersController : ControllerBase
         }
     }
 
+    [HttpPost]
+    //[Authorize]
+    public async Task<IActionResult> Register([FromBody] Player player)
+    {
+        if (player == null)
+        {
+            return BadRequest("Invalid data");
+        }
+
+        _dbcontext.Players.Add(player);
+        await _dbcontext.SaveChangesAsync();
+
+        return Ok("Player added successfully");
+    }
+
 
 }

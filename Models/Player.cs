@@ -7,10 +7,10 @@ public class Player
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public int PositionId { get; set; }
-    public Position Pos { get; set; }
+    public Position? Pos { get; set; }
     public int TeamId { get; set; }
-    public List<PlayerGame> PlayerGames { get; set; }
-    public Team Team { get; set; }
+    public List<PlayerGame>? PlayerGames { get; set; }
+    public Team? Team { get; set; }
     public double OfficialAtBats
     {
         get

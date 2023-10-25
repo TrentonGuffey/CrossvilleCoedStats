@@ -35,7 +35,7 @@ const AddPlayerGame = () => {
 
         const playerGameData = {
             playerId: id,
-            gameid: selectedGame,
+            gameId: selectedGame,
             totalPlateAppearances: event.target.totalPlateAppearances.value,
             single: event.target.single.value,
             double: event.target.double.value,
@@ -69,7 +69,8 @@ const AddPlayerGame = () => {
         } catch (error) {
             console.error("Error adding player game stats: " + error);
             console.log(playerGameData);
-        }    };
+        }    
+    };
 
     return (
         <div>

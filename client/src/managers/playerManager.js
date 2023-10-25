@@ -16,3 +16,29 @@ export const getPlayerById = (id) => {
     } catch (error) {
         console.error("Error fetching data: " + error);
     }};
+
+export const addPlayer = async ( playerData  ) => {
+
+    try {
+        // console.log(playerData)
+        const response = await fetch("/api/players", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(playerData),
+        });
+        console.log(response);
+        if (!response.ok) {
+            throw new Error("Error adding player on response");
+        }
+        console.log("Player added successfully");
+        return response
+
+    } catch (error) {
+        console.error("Error adding player: " + error);
+        // console.log(playerData);
+    }
+
+    
+};

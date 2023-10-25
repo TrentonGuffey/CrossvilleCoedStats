@@ -1,118 +1,117 @@
-import { useState } from "react";
-import { register } from "../../managers/authManager";
-import { Link, useNavigate } from "react-router-dom";
-import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
+import React, { useEffect, useState } from 'react';
+import { getPositions } from '../../managers/posManager';
+import { getTeams } from '../../managers/gameManager';
+import { addPlayer } from '../../managers/playerManager';
 
-export default function Register({ setLoggedInUser }) {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+function Register() {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [positionId, setPositionId] = useState('');
+  const [teamId, setTeamId] = useState('');
+  const [positions, setPositions] = useState([]);
+  const [teams, setTeams] = useState([]);
 
-  const [passwordMismatch, setPasswordMismatch] = useState();
-
-  const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (password !== confirmPassword) {
-      setPasswordMismatch(true);
-    } else {
-      const newUser = {
-        firstName,
-        lastName,
-        userName,
-        email,
-        password,
-      };
-      register(newUser).then((user) => {
-        setLoggedInUser(user);
-        navigate("/");
+  useEffect(() => {
+    getPositions()
+      .then((positions) => {
+        setPositions(positions);
+      })
+      .catch((error) => {
+        console.error(error);
       });
-    }
+  }, []); 
+
+  useEffect(() => {
+    getTeams()
+      .then((teams) => {
+        setTeams(teams);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []); 
+
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    if (name === 'firstName') setFirstName(value);
+    else if (name === 'lastName') setLastName(value);
+    else if (name === 'position') setPositionId(value);
+    else if (name === 'team') setTeamId(value);
   };
 
-  return (
-    <div className="container" style={{ maxWidth: "500px" }}>
-      <h3>Sign Up</h3>
-      <FormGroup>
-        <Label>First Name</Label>
-        <Input
-          type="text"
-          value={firstName}
-          onChange={(e) => {
-            setFirstName(e.target.value);
-          }}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label>Last Name</Label>
-        <Input
-          type="text"
-          value={lastName}
-          onChange={(e) => {
-            setLastName(e.target.value);
-          }}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label>Email</Label>
-        <Input
-          type="email"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label>User Name</Label>
-        <Input
-          type="text"
-          value={userName}
-          onChange={(e) => {
-            setUserName(e.target.value);
-          }}
-        />
-      </FormGroup>      
-      <FormGroup>
-        <Label>Password</Label>
-        <Input
-          invalid={passwordMismatch}
-          type="password"
-          value={password}
-          onChange={(e) => {
-            setPasswordMismatch(false);
-            setPassword(e.target.value);
-          }}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label> Confirm Password</Label>
-        <Input
-          invalid={passwordMismatch}
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => {
-            setPasswordMismatch(false);
-            setConfirmPassword(e.target.value);
-          }}
-        />
-        <FormFeedback>Passwords do not match!</FormFeedback>
-      </FormGroup>
-      <Button
-        color="primary"
-        onClick={handleSubmit}
-        disabled={passwordMismatch}
-      >
-        Register
-      </Button>
-      <p>
-        Already signed up? Log in <Link to="/login">here</Link>
-      </p>
-    </div>
-  );
-}
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const playerData = {
+      firstName,
+      lastName,
+      positionId,
+      teamId,
+    };
+    await addPlayer(playerData)
+    
+      window.location.reload();
+    
+  };
+
+    return (
+      <div>
+        <h2>Player Registration</h2>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>First Name:</label>
+            <input
+              type="text"
+              name="firstName"
+              value={firstName}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <label>Last Name:</label>
+            <input
+              type="text"
+              name="lastName"
+              value={lastName}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+          <label>Position:</label>
+            <select
+              name="position"
+              value={positionId}
+              onChange={handleInputChange}
+            >
+              <option value="">Select Position</option>
+              {positions.map((position) => (
+                <option key={position.id} value={position.id}>
+                  {position.pos}
+                </option>
+              ))} 
+              </select>
+          </div>
+          <div>
+            <label>Team:</label>
+            <select
+              name="team"
+              value={teamId}
+              onChange={handleInputChange}
+            >
+              <option value="">Select Team</option>
+              {teams.map((team) => (
+                <option key={team.id} value={team.id}>
+                  {team.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    );
+  }
+
+
+export default Register;

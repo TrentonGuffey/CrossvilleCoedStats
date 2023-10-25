@@ -109,45 +109,45 @@ public class AuthController : ControllerBase
         return NotFound();
     }
 
-    [HttpPost("register")]
-    public async Task<IActionResult> Register(Registration registration)
-    {
-        var user = new IdentityUser
-        {
-            UserName = registration.UserName,
-            Email = registration.Email
-        };
+    // [HttpPost("register")]
+    // public async Task<IActionResult> Register(Registration registration)
+    // {
+    //     var user = new IdentityUser
+    //     {
+    //         UserName = registration.UserName,
+    //         Email = registration.Email
+    //     };
 
-        var password = Encoding
-            .GetEncoding("iso-8859-1")
-            .GetString(Convert.FromBase64String(registration.Password));
+    //     var password = Encoding
+    //         .GetEncoding("iso-8859-1")
+    //         .GetString(Convert.FromBase64String(registration.Password));
 
-        var result = await _userManager.CreateAsync(user, password);
-        if (result.Succeeded)
-        {
-            _dbContext.UserProfiles.Add(new UserProfile
-            {
-                FirstName = registration.FirstName,
-                LastName = registration.LastName,
-                IdentityUserId = user.Id,
-            });
-            _dbContext.SaveChanges();
+    //     var result = await _userManager.CreateAsync(user, password);
+    //     if (result.Succeeded)
+    //     {
+    //         _dbContext.UserProfiles.Add(new UserProfile
+    //         {
+    //             FirstName = registration.FirstName,
+    //             LastName = registration.LastName,
+    //             IdentityUserId = user.Id,
+    //         });
+    //         _dbContext.SaveChanges();
 
-            var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.UserName.ToString()),
-                    new Claim(ClaimTypes.Email, user.Email)
+    //         var claims = new List<Claim>
+    //             {
+    //                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+    //                 new Claim(ClaimTypes.Name, user.UserName.ToString()),
+    //                 new Claim(ClaimTypes.Email, user.Email)
 
-                };
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+    //             };
+    //         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            HttpContext.SignInAsync(
-            CookieAuthenticationDefaults.AuthenticationScheme,
-            new ClaimsPrincipal(claimsIdentity)).Wait();
+    //         HttpContext.SignInAsync(
+    //         CookieAuthenticationDefaults.AuthenticationScheme,
+    //         new ClaimsPrincipal(claimsIdentity)).Wait();
 
-            return Ok();
-        }
-        return StatusCode(500);
-    }
+    //         return Ok();
+    //     }
+    //     return StatusCode(500);
+    // }
 }
