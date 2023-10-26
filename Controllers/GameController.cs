@@ -18,7 +18,7 @@ public class GamesController : ControllerBase
     }
 
     [HttpGet]
-    //[Authorize]
+    [Authorize]
     public IActionResult Get()
     {
         return Ok(_dbcontext.Games
@@ -28,7 +28,7 @@ public class GamesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    //[Authorize]
+    [Authorize(Roles = "Admin")]
     public IActionResult Delete(int id)
     {
         try
@@ -52,6 +52,7 @@ public class GamesController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public IActionResult AddGame([FromBody] Game game)
     {
         if (game == null)

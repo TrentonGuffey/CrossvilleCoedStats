@@ -18,7 +18,7 @@ public class PlayersController : ControllerBase
     }
 
     [HttpGet]
-    //[Authorize]
+    [Authorize]
     public IActionResult Get()
     {
         return Ok(_dbcontext.Players
@@ -29,7 +29,7 @@ public class PlayersController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    //[Authorize]
+    [Authorize]
     public IActionResult GetById(int id)
     {
         Player player = _dbcontext.Players
@@ -48,7 +48,7 @@ public class PlayersController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    //[Authorize]
+    [Authorize(Roles = "Admin")]
     public IActionResult Delete(int id)
     {
         try
@@ -72,7 +72,6 @@ public class PlayersController : ControllerBase
     }
 
     [HttpPost]
-    //[Authorize]
     public async Task<IActionResult> Register([FromBody] Player player)
     {
         if (player == null)
@@ -87,7 +86,7 @@ public class PlayersController : ControllerBase
     }
 
     [HttpPut("{id}/editTeam")]
-    //[Authorize]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> EditTeam([FromBody] Player player)
     {
         if (player == null)

@@ -17,7 +17,7 @@ public class PositionsController : ControllerBase
         _dbcontext = context;
     }
     [HttpGet]
-    //[Authorize]
+    [Authorize]
     public IActionResult Get()
     {
         return Ok(_dbcontext.Positions

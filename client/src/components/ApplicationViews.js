@@ -8,6 +8,7 @@ import PlayerDetails from "./players/PlayerDetails";
 import { useState } from "react";
 import PlayerPage from "./players/PlayerPage";
 import PdfViewer from "./Rules";
+import Rules from "./Rules";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   const [PlayerDetailsKey, setPlayerDetailsKey] = useState(0);
@@ -19,7 +20,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
               <div className="two-column-layout">
-                <PdfViewer />
+                <Rules />
               </div>             
             </AuthorizedRoute>
           }
