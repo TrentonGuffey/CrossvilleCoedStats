@@ -1,0 +1,31 @@
+.register
+{
+    padding-top: 5rem;
+    padding-left: 300px;
+    padding-right: 20rem;    
+}
+.addPlayerTitle
+{
+    padding-bottom: 10px;
+}
+.addPlayerFirstName
+{
+    padding-bottom: 20px;
+}
+.addPlayerLastName
+{
+    padding-bottom: 20px;
+}
+.addPlayerPosition
+{
+    padding-bottom: 20px;
+}
+.addPlayerTeam
+{
+    padding-bottom: 20px;
+}
+.addPlayerButton
+{
+    color: #fbfbfc;
+    background-color: #3649f8;
+}

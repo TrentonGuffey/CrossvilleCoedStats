@@ -15,7 +15,6 @@ public class GamesController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize]
     public IActionResult Get()
     {
         return Ok(_dbcontext.Teams

@@ -4,11 +4,10 @@ import Login from "./auth/Login";
 import Register from "./auth/Register";
 import Players from "./players/Players";
 import Games from "./games/Games";
-import PlayerDetails from "./players/PlayerDetails";
 import { useState } from "react";
 import PlayerPage from "./players/PlayerPage";
-import PdfViewer from "./Rules";
 import Rules from "./Rules";
+import Waiver from "./Waiver";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   const [PlayerDetailsKey, setPlayerDetailsKey] = useState(0);
@@ -19,7 +18,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           index
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
-              <div className="two-column-layout">
+              <div>
                 <Rules />
               </div>             
             </AuthorizedRoute>
@@ -55,7 +54,10 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
         />
         <Route
           path="register"
-          element={<Register setLoggedInUser={setLoggedInUser} />}
+          element={
+            <>
+            <div style={{display: "flex"}}><Register /><Waiver /></div></>
+          }
         />
       </Route>
       <Route path="*" element={<p>Whoops, nothing here...</p>} />

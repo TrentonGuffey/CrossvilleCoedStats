@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getPositions } from '../../managers/posManager';
 import { getTeams } from '../../managers/gameManager';
 import { addPlayer } from '../../managers/playerManager';
+import styles from "./Register.css"
 
 function Register() {
   const [firstName, setFirstName] = useState('');
@@ -56,10 +57,10 @@ function Register() {
   };
 
     return (
-      <div>
-        <h2>Player Registration</h2>
+      <div className="register">
+        <h2 className='addPlayerTitle'>Player Registration</h2>
         <form onSubmit={handleSubmit}>
-          <div>
+          <div className='addPlayerFirstName'>
             <label>First Name:</label>
             <input
               type="text"
@@ -68,7 +69,7 @@ function Register() {
               onChange={handleInputChange}
             />
           </div>
-          <div>
+          <div className='addPlayerLastName'>
             <label>Last Name:</label>
             <input
               type="text"
@@ -77,9 +78,9 @@ function Register() {
               onChange={handleInputChange}
             />
           </div>
-          <div>
+          <div className='addPlayerPosition'>
           <label>Position:</label>
-            <select
+            <select 
               name="position"
               value={positionId}
               onChange={handleInputChange}
@@ -92,7 +93,7 @@ function Register() {
               ))} 
               </select>
           </div>
-          <div>
+          <div className='addPlayerTeam'>
             <label>Team:</label>
             <select
               name="team"
@@ -107,7 +108,7 @@ function Register() {
               ))}
             </select>
           </div>
-          <button type="submit">Submit</button>
+          <button className='addPlayerButton' type="submit">Submit</button>
         </form>
       </div>
     );
