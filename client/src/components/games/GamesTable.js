@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import AddGame from "./AddGame";
 import { getGames, getTeams } from "../../managers/gameManager";
 
-const GameTable = () => {
+const GameTable = ({loggedInUser}) => {
     const [games, setGames] = useState([]);
     const [teams, setTeams] = useState([]);
 
@@ -91,15 +91,21 @@ const GameTable = () => {
                         <td>{game.visitorTeam.name}</td>
                         <td>{game.homeTeam.name}</td>
                         <td>
-                            <Button color="danger" onClick={() => handleDelete(game.id)}>
+                        {loggedInUser.roles.includes("Admin") ? (
+                                <Button color="danger" onClick={() => handleDelete(game.id)}>
+                                    Delete
+                                </Button>
+                            ) : null}
+
+                            {/* <Button color="danger" onClick={() => handleDelete(game.id)}>
                                 Delete
-                            </Button>
+                            </Button> */}
                         </td>
                     </tr>
                 ))}
             </tbody>
         </Table>
-        <AddGame onAddGame={handleAddGame} teams={teams} />
+        {loggedInUser.roles.includes("Admin") && <AddGame onAddGame={handleAddGame} teams={teams} />}
         </div>
     );
 };

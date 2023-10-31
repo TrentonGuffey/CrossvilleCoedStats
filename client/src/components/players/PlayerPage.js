@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import EditTeam from "./EditTeam";
 
 
-const PlayerPage = () => {
+const PlayerPage = ({loggedInUser}) => {
     const [player, setPlayer] = useState(null);
     const { id } = useParams();
     
@@ -32,15 +32,15 @@ const PlayerPage = () => {
     if (!player) {
         return <div>Loading...</div>;
     }
-
     return (
         <div>
             <h2>
                 {player.firstName} {player.lastName}, {player.pos.pos} , {player.team.name}
             </h2>
-            <PlayerDetails player={player} />
+            <PlayerDetails player={player} loggedInUser={loggedInUser} />
             <AddPlayerGame playerId={player.id} />
-            <EditTeam player={player} />
+            {loggedInUser.roles.includes("Admin") && <EditTeam player={player} />}
+            {/* <EditTeam player={player} /> */}
         </div>
     );
 };

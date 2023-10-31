@@ -3,7 +3,7 @@ import { Button, Table } from "reactstrap";
 import { format } from "date-fns";
 import { deletePlayerGame } from "../../managers/playerGameManager";
 
-const PlayerDetails = ({ player }) => {
+const PlayerDetails = ({ player, loggedInUser}) => {
     if (!player) {
         return <div>Loading...</div>;
     };
@@ -23,7 +23,7 @@ const PlayerDetails = ({ player }) => {
             console.error("Error deleting player game: " + error);
         }
     };
-
+    
     return (
         <div>
             <Table>
@@ -56,7 +56,12 @@ const PlayerDetails = ({ player }) => {
                             <td>{game.fieldersChoice}</td>
                             <td>{game.runsBattedIn}</td>
                             <td>{game.runsScored}</td>
-                            <td><Button color="danger" onClick={() => handleDeleteGame(game.id)}>Delete</Button></td>
+                            <td>
+                                {loggedInUser.roles.includes("Admin") ? (
+                                <Button color="danger" onClick={() => handleDeleteGame(game.id)}>Delete</Button>) : null}
+
+                                {/* <Button color="danger" onClick={() => handleDeleteGame(game.id)}>Delete</Button> */}
+                            </td>
                         </tr>
                     ))}
                 </tbody>

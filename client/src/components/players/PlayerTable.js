@@ -3,9 +3,8 @@ import { Button, Table } from "reactstrap";
 import { Link } from "react-router-dom";
 
 
-const PlayerTable = () => {
+const PlayerTable = ({loggedInUser}) => {
     const [players, setPlayers] = useState([]);
-
     useEffect(() => {
         fetch("/api/players")
             .then((response) => response.json())
@@ -32,6 +31,7 @@ const PlayerTable = () => {
             console.error("Network error: " + error);
         })
     };
+    console.log(loggedInUser);
 
     return (
         <Table>
@@ -53,9 +53,11 @@ const PlayerTable = () => {
                 {players.map((player) => (
                     <tr key={player.id}>
                         <td>
-                            <Button color="danger" onClick={() => handleDelete(player.id)}>
-                                Delete
-                            </Button>
+                            {loggedInUser.roles.includes("Admin") ? (
+                                <Button color="danger" onClick={() => handleDelete(player.id)}>
+                                    Delete
+                                </Button>
+                            ) : null}
                         </td>
                         <td>{player.team.name}</td>
                         <td><Link to={`/players/${player.id}`}>

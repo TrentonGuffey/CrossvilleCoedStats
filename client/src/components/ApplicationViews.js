@@ -8,6 +8,8 @@ import { useState } from "react";
 import PlayerPage from "./players/PlayerPage";
 import Rules from "./Rules";
 import Waiver from "./Waiver";
+import PlayerTable from "./players/PlayerTable";
+import GameTable from "./games/GamesTable";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   const [PlayerDetailsKey, setPlayerDetailsKey] = useState(0);
@@ -28,7 +30,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           path="players"
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
-              <Players />
+              <PlayerTable loggedInUser={loggedInUser}/>
             </AuthorizedRoute>
           }
         />
@@ -36,7 +38,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           path="games"
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
-              <Games />
+              <GameTable loggedInUser={loggedInUser}/>
             </AuthorizedRoute>
           }
         />
@@ -44,7 +46,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           path="players/:id" 
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
-              <PlayerPage />
+              <PlayerPage loggedInUser={loggedInUser}/>
             </AuthorizedRoute>
           }
         />
