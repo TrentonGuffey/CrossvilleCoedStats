@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table } from "reactstrap";
 import { Link } from "react-router-dom";
+import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 
 
 const PlayerTable = ({loggedInUser}) => {
     const [players, setPlayers] = useState([]);
+    const [sortColumn, setSortColumn] = useState("firstName");
+    const [sortOrder, setSortOrder] = useState("asc");
+
     useEffect(() => {
         fetch("/api/players")
             .then((response) => response.json())
@@ -31,26 +35,50 @@ const PlayerTable = ({loggedInUser}) => {
             console.error("Network error: " + error);
         })
     };
-    console.log(loggedInUser);
 
+    const handleSort = (column) => {
+        if (column === sortColumn) {
+            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+        } else {
+            setSortColumn(column);
+            setSortOrder("asc");
+        }
+    };
+
+    const getSortingSymbol = (column) => {
+        if (column === sortColumn) {
+            return sortOrder === "asc" ? <FaSortUp /> : <FaSortDown />;
+        }
+        return <FaSort />;
+    };
+    console.log(loggedInUser);
     return (
         <Table>
             <thead>
                 <tr>
                     <th></th>
-                    <th>Team Name</th>
-                    <th>Name</th>
-                    <th>ID</th>
-                    <th>Official AB's</th>
-                    <th>Total Hits</th>
-                    <th>Batting Avg</th>
-                    <th>Runs Scored</th>
-                    <th>RBI's</th>
+                    <th onClick={() => handleSort("team.name")}>Team Name {getSortingSymbol("team.name")}</th>
+                    <th onClick={() => handleSort("firstName")}>Name {getSortingSymbol("firstName")}</th>
+                    <th onClick={() => handleSort("officialAtBats")}>Official AB's {getSortingSymbol("officalAtBats")}</th>
+                    <th onClick={() => handleSort("totalHits")}>Total Hits {getSortingSymbol("totalHits")}</th>
+                    <th onClick={() => handleSort("battingAverage")}>Batting Avg {getSortingSymbol("battingAverage")}</th>
+                    <th onClick={() => handleSort("totalRunsScored")}>Runs Scored {getSortingSymbol("totalRunsScored")}</th>
+                    <th onClick={() => handleSort("totalRBIs")}>RBI's {getSortingSymbol("totalRBIs")}</th>
                     {/* Add other table headers for player properties */}
                 </tr>
             </thead>
             <tbody>
-                {players.map((player) => (
+                {players.slice().sort((a, b) => {
+                    const valueA = a[sortColumn];
+                    const valueB = b[sortColumn];
+
+                    if (sortOrder === "asc") {
+                        return valueA < valueB ? -1 : 1;
+                    } else {
+                        return valueA > valueB ? -1 : 1;
+                    }
+                })
+                .map((player) => (
                     <tr key={player.id}>
                         <td>
                             {loggedInUser.roles.includes("Admin") ? (
@@ -63,7 +91,6 @@ const PlayerTable = ({loggedInUser}) => {
                         <td><Link to={`/players/${player.id}`}>
                             {player.firstName} {player.lastName}
                         </Link></td>
-                        <td>{player.id}</td>
                         <td>{player.officialAtBats}</td>
                         <td>{player.totalHits}</td>
                         <td>{player.battingAverage}</td>
