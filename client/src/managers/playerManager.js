@@ -20,7 +20,6 @@ export const getPlayerById = (id) => {
 export const addPlayer = async ( playerData  ) => {
 
     try {
-        // console.log(playerData)
         const response = await fetch("/api/players", {
             method: "POST",
             headers: {
@@ -37,8 +36,21 @@ export const addPlayer = async ( playerData  ) => {
 
     } catch (error) {
         console.error("Error adding player: " + error);
-        // console.log(playerData);
     }
+};
 
-    
+export const deletePlayer = (id) => {
+    return fetch(`${apiUrl}/${id}`, {
+        method: "DELETE",
+    })
+        .then((response) => {
+            if (response.ok) {
+                console.log(`Player was deleted successfully.`);
+            } else {
+                throw new Error(`Error deleting player.`);
+            }
+        })
+        .catch((error) => {
+            console.error("Network error: " + error);
+        });
 };

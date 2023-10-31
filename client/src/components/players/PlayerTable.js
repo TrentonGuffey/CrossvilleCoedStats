@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Table } from "reactstrap";
 import { Link } from "react-router-dom";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
+import { deletePlayer, getPlayers } from "../../managers/playerManager";
 
 
 const PlayerTable = ({loggedInUser}) => {
@@ -10,31 +11,19 @@ const PlayerTable = ({loggedInUser}) => {
     const [sortOrder, setSortOrder] = useState("asc");
 
     useEffect(() => {
-        fetch("/api/players")
-            .then((response) => response.json())
-            .then((data) => setPlayers(data))
+        getPlayers().then((data) => setPlayers(data))
             .catch((error) => console.error("Error fetching data: " + error));
     }, []);
 
-    const handleDelete = (playerId) => {
-        fetch(`/api/players/${playerId}`, {
-            method: 'DELETE',
-        })
-        .then((response) => {
-            if (response.ok) {
-                console.log(`Player was deleted successfully.`);
-                fetch("/api/players")
-                    .then((response) => response.json())
-                    .then((data) => setPlayers(data))
-                    .catch((error) => console.error("Error fetching data: " + error));
-            } else {
-                console.error(`Error deleting player.`);
-            }
+    const handleDelete = (playerId) =>{
+        deletePlayer(playerId).then(() => {
+            console.log(`Player was deleted successfully.`);
+            getPlayers().then((data) => setPlayers(data));
         })
         .catch((error) => {
-            console.error("Network error: " + error);
-        })
-    };
+            console.error(`Error deleting player: ${error}`);
+        });
+    }; 
 
     const handleSort = (column) => {
         if (column === sortColumn) {
