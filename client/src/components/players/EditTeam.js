@@ -10,19 +10,6 @@ const EditTeam = ( {player} ) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-    //     const fetchPlayerData = async () => {
-    //         try {
-    //             const response = await fetch(`/api/players/${id}`);
-    //             if (!response.ok) {
-    //                 throw new Error("Error fetching data");
-    //             }
-
-    //             const data = await response.json();
-    //             setPlayer(data);
-    //         } catch (error) {
-    //             console.error("Error fetching data: " + error);
-    //         }
-    //     };
 
         const fetchTeams = async () => {
             try {
