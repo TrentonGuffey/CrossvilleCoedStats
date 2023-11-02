@@ -75,7 +75,7 @@ const GameTable = ({loggedInUser}) => {
 
     return (
         <div>
-        <Table>
+        <Table className="gameTable">
             <thead>
                 <tr>
                     <th style={{width: '30%'}}>Game Time & Date</th>
@@ -96,10 +96,6 @@ const GameTable = ({loggedInUser}) => {
                                     Delete
                                 </Button>
                             ) : null}
-
-                            {/* <Button color="danger" onClick={() => handleDelete(game.id)}>
-                                Delete
-                            </Button> */}
                         </td>
                     </tr>
                 ))}

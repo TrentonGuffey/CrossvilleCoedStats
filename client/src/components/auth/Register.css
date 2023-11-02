@@ -2,7 +2,9 @@
 {
     padding-top: 5rem;
     padding-left: 300px;
-    padding-right: 20rem;    
+    padding-right: 20rem;
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke: 0.25px black;    
 }
 .addPlayerTitle
 {
@@ -28,4 +30,7 @@
 {
     color: #fbfbfc;
     background-color: #3649f8;
+}
+.custom-input {
+    color: black;
 }

@@ -26,7 +26,7 @@ const PlayerDetails = ({ player, loggedInUser}) => {
     
     return (
         <div>
-            <Table>
+            <Table className="playerPageTable">
                 <thead>
                     <tr>
                         <th>Game Date</th>

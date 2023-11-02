@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Button, FormGroup, Label, Input, Form } from "reactstrap";
-import DatePicker from "react-datepicker";
+import { Button, FormGroup, Label, Input, Form, FormText } from "reactstrap";
 import Select from "react-select";
+import {DatePicker} from 'reactstrap-date-picker'
 
 const AddGame = ({ onAddGame, teams }) => {
     const [newGame, setNewGame] = useState({
         homeTeamId: "",
         visitorTeamId: "",
-        gameTime: new Date(),
+        gameTime: new Date().toISOString(),
     });
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const AddGame = ({ onAddGame, teams }) => {
     };
 
     const handleDateChange = (date) => {
-        setNewGame({ ...newGame, gameTime: date });
+        setNewGame({ ...newGame, gameTime: date.toISOString() });
     };
 
     const handleSelectChange = (selectedOption, name) => {
@@ -31,9 +31,9 @@ const AddGame = ({ onAddGame, teams }) => {
     };
 
     return (
-        <Form>
-            <FormGroup>
-                <Label for="homeTeamId">Home Team</Label>
+        <Form className="addGame">
+            <FormGroup className="col-md-4">
+                <Label className="label" for="homeTeamId">Home Team</Label>
                 <Select
                     id="homeTeamId"
                     name="homeTeamId"
@@ -44,8 +44,8 @@ const AddGame = ({ onAddGame, teams }) => {
                     onChange={(selectedOption) => handleSelectChange(selectedOption, "homeTeamId")}
                 />
             </FormGroup>
-            <FormGroup>
-                <Label for="visitorTeamId">Visitor Team</Label>
+            <FormGroup className="col-md-4">
+                <Label className="label" for="visitorTeamId">Visitor Team</Label>
                 <Select
                     id="visitorTeamId"
                     name="visitorTeamId"
@@ -56,8 +56,8 @@ const AddGame = ({ onAddGame, teams }) => {
                     onChange={(selectedOption) => handleSelectChange(selectedOption, "visitorTeamId")}
                 />
             </FormGroup>
-            <FormGroup>
-                <Label for="gameTime">Game Date & Time</Label>
+            <FormGroup className="col-md-4">
+                <Label className="label" for="gameTime">Game Date & Time</Label>
                 <DatePicker
                     id="gameTime"
                     name="gameTime"

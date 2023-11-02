@@ -37,10 +37,54 @@
   }
 }
 
-.two-column-layout {
-  display: flex;
+body {
+  background-image: url('../src/foullinepicture3.jpeg');
+  background-size: cover;
 }
-.two-column-layout > :first-child {
-  margin-left: 5rem;
-  margin-right: 5rem;
+.label {
+color: white;
+-webkit-text-fill-color: white;
+-webkit-text-stroke: 0.25px black;
+}
+.custom-navbar {
+  background-color: yellow;
+}
+.custom-input {
+  color: black;
+}
+.login {
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh; /* Center vertically in the viewport */
+}
+.playerPageTable{
+  opacity: 57.5%;
+}
+.waiver{
+  padding-right: 0px;
+}
+
+.playerReg {
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh; /* Center vertically in the viewport */
+}
+.editTeam{
+  padding-left: 300px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.gameTable{
+  opacity: 57.5%;
+}
+.addGame{
+  margin-left: 40rem;
 }

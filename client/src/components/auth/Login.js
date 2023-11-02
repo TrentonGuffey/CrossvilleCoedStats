@@ -22,11 +22,12 @@ export default function Login({ setLoggedInUser }) {
   };
 
   return (
-    <div className="container" style={{ maxWidth: "500px" }}>
-      <h3>Coach Login</h3>
+    <div className="login" style={{ maxWidth: "500px" }}>
+      <h3 className="label">Coach Login</h3>
       <FormGroup>
-        <Label>Email</Label>
+        <Label className="label">Email</Label>
         <Input
+          className="custom-input"
           invalid={failedLogin}
           type="text"
           value={email}
@@ -37,8 +38,9 @@ export default function Login({ setLoggedInUser }) {
         />
       </FormGroup>
       <FormGroup>
-        <Label>Password</Label>
+        <Label className="label">Password</Label>
         <Input
+          className="custom-input"
           invalid={failedLogin}
           type="password"
           value={password}
@@ -53,7 +55,7 @@ export default function Login({ setLoggedInUser }) {
       <Button color="primary" onClick={handleSubmit}>
         Login
       </Button>
-      <p>
+      <p className="label">
         Not on a team? Join a team <Link to="/register">here</Link>
       </p>
     </div>

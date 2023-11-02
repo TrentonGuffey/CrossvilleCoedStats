@@ -67,10 +67,10 @@ const EditTeam = ( {player} ) => {
     }
 
     return (
-        <div>
-            <h2>Edit Player's Team</h2>
-            <h3>{player.firstName} {player.lastName}</h3>
-            <label>Select New Team:</label>
+        <div className="editTeam">
+            <h2 className="label" >Edit Player's Team</h2>
+            <h3 className="label" >{player.firstName} {player.lastName}</h3>
+            <label className="label" >Select New Team:</label>
             <select value={selectedTeam} onChange={handleTeamChange}>
                 {availableTeams.map((team) => (
                     team.id === player.teamId ? 

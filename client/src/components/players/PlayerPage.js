@@ -49,7 +49,7 @@ const PlayerPage = ({loggedInUser}) => {
     }
     return (
         <div>
-            <h2>
+            <h2 className="label">
                 {player.firstName} {player.lastName}, {player.pos.pos} , {player.team.name}
             </h2>
             <PlayerDetails player={player} loggedInUser={loggedInUser} handleDeleteGame={handleDeleteGame}/>

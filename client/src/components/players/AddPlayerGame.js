@@ -69,66 +69,74 @@ const AddPlayerGame = () => {
         } catch (error) {
             console.error("Error adding player game stats: " + error);
             console.log(playerGameData);
-        }    
+        }
     };
 
     return (
-        <div>
-            <h2>Add Game Stats</h2>
-            <Form innerRef={formRef} onSubmit={handleFormSubmit}>
-                <FormGroup>
-                    <Label for="game">Select Game</Label>
-                    <Input type="select" name="game" id="game" onChange={handleGameSelect}>
-                        <option value="">Select a Game</option>
-                        {gameList.map((game) => (
-                            <option key={game.id} value={game.id}>
-                                {game.gameTime}
-                            </option>
-                        ))}
-                    </Input>
-                </FormGroup>
-                <FormGroup>
-                    <Label for="totalPlateAppearances">Total Plate Appearances</Label>
-                    <Input type="number" name="totalPlateAppearances" id="totalPlateAppearances" />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="single">Singles</Label>
-                    <Input type="number" name="single" id="single" />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="double">Doubles</Label>
-                    <Input type="number" name="double" id="double" />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="triple">Triples</Label>
-                    <Input type="number" name="triple" id="triple" />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="homeRun">Home Runs</Label>
-                    <Input type="number" name="homeRun" id="homeRun" />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="walk">Walks</Label>
-                    <Input type="number" name="walk" id="walk" />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="sacrifice">Sacrifices</Label>
-                    <Input type="number" name="sacrifice" id="sacrifice" />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="fieldersChoice">Fielders Choices</Label>
-                    <Input type="number" name="fieldersChoice" id="fieldersChoice" />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="runsBattedIn">RBI's</Label>
-                    <Input type="number" name="runsBattedIn" id="runsBattedIn" />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="runsScored">Runs Scored</Label>
-                    <Input type="number" name="runsScored" id="runsScored" />
-                </FormGroup>
-                <Button type="submit">Submit</Button>
-            </Form>
+
+        <div className="container">
+            <h2 className="label">Add Game Stats</h2>
+            <div className="row">
+                <div className="col-md-6">
+                    <Form innerRef={formRef} onSubmit={handleFormSubmit}>
+                        <FormGroup>
+                            <Label className="label" for="totalPlateAppearances">Total Plate Appearances</Label>
+                            <Input type="number" name="totalPlateAppearances" id="totalPlateAppearances" />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label className="label" for="single">Singles</Label>
+                            <Input type="number" name="single" id="single" />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label className="label" for="double">Doubles</Label>
+                            <Input type="number" name="double" id="double" />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label className="label" for="triple">Triples</Label>
+                            <Input type="number" name="triple" id="triple" />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label className="label" for="homeRun">Home Runs</Label>
+                            <Input type="number" name="homeRun" id="homeRun" />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label className="label" for="walk">Walks</Label>
+                            <Input type="number" name="walk" id="walk" />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label className="label" for="sacrifice">Sacrifices</Label>
+                            <Input type="number" name="sacrifice" id="sacrifice" />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label className="label" for="fieldersChoice">Fielders Choices</Label>
+                            <Input type="number" name="fieldersChoice" id="fieldersChoice" />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label className="label" for="runsBattedIn">RBI's</Label>
+                            <Input type="number" name="runsBattedIn" id="runsBattedIn" />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label className="label" for="runsScored">Runs Scored</Label>
+                            <Input type="number" name="runsScored" id="runsScored" />
+                        </FormGroup>
+                        {/* Add other form fields similarly */}
+                        <Button type="submit">Submit</Button>
+                    </Form>
+                </div>
+                <div className="col-md-6">
+                    <FormGroup>
+                        <Label className="label" for="game">Select Game</Label>
+                        <Input type="select" name="game" id="game" onChange={handleGameSelect}>
+                            <option value="">Select a Game</option>
+                            {gameList.map((game) => (
+                                <option key={game.id} value={game.id}>
+                                    {game.gameTime}
+                                </option>
+                            ))}
+                        </Input>
+                    </FormGroup>
+                </div>
+            </div>
         </div>
     );
 };

@@ -40,9 +40,8 @@ const PlayerTable = ({loggedInUser}) => {
         }
         return <FaSort />;
     };
-    console.log(loggedInUser);
     return (
-        <Table>
+        <Table className="playerPageTable">
             <thead>
                 <tr>
                     <th></th>

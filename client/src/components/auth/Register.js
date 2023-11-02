@@ -2,7 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { getPositions } from '../../managers/posManager';
 import { getTeams } from '../../managers/gameManager';
 import { addPlayer } from '../../managers/playerManager';
-import styles from "./Register.css"
+import {
+  Col,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button,
+} from 'reactstrap';
 
 function Register() {
   const [firstName, setFirstName] = useState('');
@@ -56,32 +63,44 @@ function Register() {
     
   };
 
-    return (
-      <div className="register">
-        <h2 className='addPlayerTitle'>Player Registration</h2>
-        <form onSubmit={handleSubmit}>
-          <div className='addPlayerFirstName'>
-            <label>First Name:</label>
-            <input
+  return (
+    <div className="playerReg" style={{ maxWidth: "400px" }}>
+      <h2 className="label">Player Registration</h2>
+      <Form onSubmit={handleSubmit}>
+        <FormGroup>
+          <Label className="label" for="firstName">First Name:</Label>
+          <Col>
+            <Input className="custom-input"
               type="text"
               name="firstName"
               value={firstName}
               onChange={handleInputChange}
             />
-          </div>
-          <div className='addPlayerLastName'>
-            <label>Last Name:</label>
-            <input
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label className="label" for="lastName">
+            Last Name:
+          </Label>
+          <Col>
+            <Input
               type="text"
               name="lastName"
+              id="lastName"
               value={lastName}
               onChange={handleInputChange}
             />
-          </div>
-          <div className='addPlayerPosition'>
-          <label>Position:</label>
-            <select 
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label className="label" for="position">
+            Position:
+          </Label>
+          <Col>
+            <Input
+              type="select"
               name="position"
+              id="position"
               value={positionId}
               onChange={handleInputChange}
             >
@@ -90,13 +109,19 @@ function Register() {
                 <option key={position.id} value={position.id}>
                   {position.pos}
                 </option>
-              ))} 
-              </select>
-          </div>
-          <div className='addPlayerTeam'>
-            <label>Team:</label>
-            <select
+              ))}
+            </Input>
+          </Col>
+        </FormGroup>
+        <FormGroup>
+          <Label className="label" for="team">
+            Team:
+          </Label>
+          <Col>
+            <Input
+              type="select"
               name="team"
+              id="team"
               value={teamId}
               onChange={handleInputChange}
             >
@@ -106,13 +131,16 @@ function Register() {
                   {team.name}
                 </option>
               ))}
-            </select>
-          </div>
-          <button className='addPlayerButton' type="submit">Submit</button>
-        </form>
-      </div>
-    );
-  }
+            </Input>
+          </Col>
+        </FormGroup>
+        <Button color="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
+    </div>
+  );
+}
 
 
 export default Register;

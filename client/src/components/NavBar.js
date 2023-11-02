@@ -19,7 +19,7 @@ const toggleNavbar = () => setOpen(!open);
 
 return (
     <div>
-    <Navbar color="light" light fixed="true" expand="lg">
+    <Navbar className="custom-navbar" light fixed="true" expand="lg">
         <NavbarBrand className="mr-auto" tag={RRNavLink} to="/">
         Crossville Adult Coed League
         </NavbarBrand>
